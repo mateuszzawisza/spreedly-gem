@@ -14,6 +14,7 @@ end
 test_site = YAML.load(File.read(File.dirname(__FILE__) + '/test_site.yml'))
 Spreedly.configure(test_site['name'], test_site['token'])
 
+
 class SpreedlyGemTest < Test::Unit::TestCase
   def self.only_real
     yield if ENV["SPREEDLY_TEST"] == "REAL"
@@ -107,14 +108,14 @@ class SpreedlyGemTest < Test::Unit::TestCase
     end
     
     should "generate a subscribe url" do
-      assert_equal "https://spreedly.com/terralien-test/subscribers/joe/subscribe/1/Joe%20Bob",
+      assert_equal "https://spreedly.com/#{Spreedly.site_name}/subscribers/joe/subscribe/1/Joe%20Bob",
         Spreedly.subscribe_url('joe', '1', "Joe Bob")
-      assert_equal "https://spreedly.com/terralien-test/subscribers/joe/subscribe/1/",
+      assert_equal "https://spreedly.com/#{Spreedly.site_name}/subscribers/joe/subscribe/1/",
         Spreedly.subscribe_url('joe', '1')
     end
     
     should "generate an edit subscriber url" do
-      assert_equal "https://spreedly.com/terralien-test/subscriber_accounts/zetoken",
+      assert_equal "https://spreedly.com/#{Spreedly.site_name}/subscriber_accounts/zetoken",
         Spreedly.edit_subscriber_url('zetoken')
     end
     
